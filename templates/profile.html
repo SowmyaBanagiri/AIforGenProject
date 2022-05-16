@@ -20,14 +20,20 @@
       <br>
       Your user id is #{{g.user.id}}
 	  </div>
+    <div>
+      <br>
+    </div>
+    <div id="logout">
+		  <a href="{{ url_for('logout') }}">Logout</a>
+      <br>
+      
+	  </div>
   </div>
  
 </div>
 
 <!-- you don't need that :)  -->
-<div class="direction">
-  replace
-</div>
+
 <!-- partial -->
   <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js'></script>

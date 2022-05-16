@@ -1,7 +1,9 @@
 
 from flask import (
+abort,
 Flask, 
 g,
+jsonify,
 render_template, 
 redirect, 
 url_for, 
@@ -29,9 +31,12 @@ app.secret_key = 'somesecretkey'
 
 @app.before_request
 def before_request():
+    g.user = None
+
     if 'user_id' in session:
         user = [x for x in users if x.id == session['user_id']][0]
         g.user = user
+        
 
 # Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
@@ -54,9 +59,15 @@ def login():
 
 @app.route('/profile')
 def profile():
+    if not g.user:
+        return redirect(url_for('login')) 
+        '''abort(403)'''
     return render_template('profile.html')
 
-
+@app.route('/logout', methods=['POST', 'GET'])
+def logout():
+    session.pop('user_id', None)
+    return redirect(url_for('login')) 
 
 
 
